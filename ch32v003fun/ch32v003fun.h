@@ -11883,7 +11883,9 @@ typedef struct
 #define TIM_Channel_1                      ((uint16_t)0x0000)
 #define TIM_Channel_2                      ((uint16_t)0x0004)
 #define TIM_Channel_3                      ((uint16_t)0x0008)
+#ifndef CH641
 #define TIM_Channel_4                      ((uint16_t)0x000C)
+#endif
 
 /* TIM_Clock_Division_CKD */
 #define TIM_CKD_DIV1                       ((uint16_t)0x0000)
@@ -11978,7 +11980,9 @@ typedef struct
 #define TIM_IT_CC1                         ((uint16_t)0x0002)
 #define TIM_IT_CC2                         ((uint16_t)0x0004)
 #define TIM_IT_CC3                         ((uint16_t)0x0008)
+#ifndef CH641
 #define TIM_IT_CC4                         ((uint16_t)0x0010)
+#endif
 #define TIM_IT_COM                         ((uint16_t)0x0020)
 #define TIM_IT_Trigger                     ((uint16_t)0x0040)
 #define TIM_IT_Break                       ((uint16_t)0x0080)
@@ -12000,7 +12004,9 @@ typedef struct
 #define TIM_DMABase_CCR1                   ((uint16_t)0x000D)
 #define TIM_DMABase_CCR2                   ((uint16_t)0x000E)
 #define TIM_DMABase_CCR3                   ((uint16_t)0x000F)
+#ifndef CH641
 #define TIM_DMABase_CCR4                   ((uint16_t)0x0010)
+#endif
 #define TIM_DMABase_BDTR                   ((uint16_t)0x0011)
 #define TIM_DMABase_DCR                    ((uint16_t)0x0012)
 
@@ -12029,7 +12035,9 @@ typedef struct
 #define TIM_DMA_CC1                        ((uint16_t)0x0200)
 #define TIM_DMA_CC2                        ((uint16_t)0x0400)
 #define TIM_DMA_CC3                        ((uint16_t)0x0800)
+#ifndef CH641
 #define TIM_DMA_CC4                        ((uint16_t)0x1000)
+#endif
 #define TIM_DMA_COM                        ((uint16_t)0x2000)
 #define TIM_DMA_Trigger                    ((uint16_t)0x4000)
 
@@ -12076,7 +12084,9 @@ typedef struct
 #define TIM_EventSource_CC1                ((uint16_t)0x0002)
 #define TIM_EventSource_CC2                ((uint16_t)0x0004)
 #define TIM_EventSource_CC3                ((uint16_t)0x0008)
+#ifndef CH641
 #define TIM_EventSource_CC4                ((uint16_t)0x0010)
+#endif
 #define TIM_EventSource_COM                ((uint16_t)0x0020)
 #define TIM_EventSource_Trigger            ((uint16_t)0x0040)
 #define TIM_EventSource_Break              ((uint16_t)0x0080)
@@ -12107,7 +12117,9 @@ typedef struct
 #define TIM_TRGOSource_OC1Ref              ((uint16_t)0x0040)
 #define TIM_TRGOSource_OC2Ref              ((uint16_t)0x0050)
 #define TIM_TRGOSource_OC3Ref              ((uint16_t)0x0060)
+#ifndef CH641
 #define TIM_TRGOSource_OC4Ref              ((uint16_t)0x0070)
+#endif
 
 /* TIM_Slave_Mode */
 #define TIM_SlaveMode_Reset                ((uint16_t)0x0004)
@@ -12124,14 +12136,18 @@ typedef struct
 #define TIM_FLAG_CC1                       ((uint16_t)0x0002)
 #define TIM_FLAG_CC2                       ((uint16_t)0x0004)
 #define TIM_FLAG_CC3                       ((uint16_t)0x0008)
+#ifndef CH641
 #define TIM_FLAG_CC4                       ((uint16_t)0x0010)
+#endif
 #define TIM_FLAG_COM                       ((uint16_t)0x0020)
 #define TIM_FLAG_Trigger                   ((uint16_t)0x0040)
 #define TIM_FLAG_Break                     ((uint16_t)0x0080)
 #define TIM_FLAG_CC1OF                     ((uint16_t)0x0200)
 #define TIM_FLAG_CC2OF                     ((uint16_t)0x0400)
 #define TIM_FLAG_CC3OF                     ((uint16_t)0x0800)
+#ifndef CH641
 #define TIM_FLAG_CC4OF                     ((uint16_t)0x1000)
+#endif
 
 /* TIM_Legacy */
 #define TIM_DMABurstLength_1Byte           TIM_DMABurstLength_1Transfer
