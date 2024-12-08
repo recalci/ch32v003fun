@@ -10491,6 +10491,7 @@ typedef enum
 
 /* ch32v00x_i2c.h ------------------------------------------------------------*/
 
+#ifndef CH641
 /* I2C_mode */
 #define I2C_Mode_I2C                                         ((uint16_t)0x0000)
 #if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
@@ -10501,6 +10502,8 @@ typedef enum
 /* I2C_duty_cycle_in_fast_mode */
 #define I2C_DutyCycle_16_9                                   ((uint16_t)0x4000) /* I2C fast mode Tlow/Thigh = 16/9 */
 #define I2C_DutyCycle_2                                      ((uint16_t)0xBFFF) /* I2C fast mode Tlow/Thigh = 2 */
+
+#endif //#ifndef CH641
 
 /* I2C_acknowledgement */
 #define I2C_Ack_Enable                                       ((uint16_t)0x0400)
@@ -10522,7 +10525,9 @@ typedef enum
 #define I2C_Register_DATAR                                   ((uint8_t)0x10)
 #define I2C_Register_STAR1                                   ((uint8_t)0x14)
 #define I2C_Register_STAR2                                   ((uint8_t)0x18)
+#ifndef CH641
 #define I2C_Register_CKCFGR                                  ((uint8_t)0x1C)
+#endif
 #if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define I2C_Register_RTR                                     ((uint8_t)0x20)
 
@@ -10548,15 +10553,21 @@ typedef enum
 #define I2C_IT_PECERR                                        ((uint32_t)0x01001000)
 #define I2C_IT_OVR                                           ((uint32_t)0x01000800)
 #define I2C_IT_AF                                            ((uint32_t)0x01000400)
+#ifndef CH641
 #define I2C_IT_ARLO                                          ((uint32_t)0x01000200)
+#endif
 #define I2C_IT_BERR                                          ((uint32_t)0x01000100)
 #define I2C_IT_TXE                                           ((uint32_t)0x06000080)
 #define I2C_IT_RXNE                                          ((uint32_t)0x06000040)
 #define I2C_IT_STOPF                                         ((uint32_t)0x02000010)
+#ifndef CH641
 #define I2C_IT_ADD10                                         ((uint32_t)0x02000008)
+#endif
 #define I2C_IT_BTF                                           ((uint32_t)0x02000004)
 #define I2C_IT_ADDR                                          ((uint32_t)0x02000002)
+#ifndef CH641
 #define I2C_IT_SB                                            ((uint32_t)0x02000001)
+#endif
 
 /* SR2 register flags  */
 #define I2C_FLAG_DUALF                                       ((uint32_t)0x00800000)
@@ -10577,15 +10588,23 @@ typedef enum
 #define I2C_FLAG_PECERR                                      ((uint32_t)0x10001000)
 #define I2C_FLAG_OVR                                         ((uint32_t)0x10000800)
 #define I2C_FLAG_AF                                          ((uint32_t)0x10000400)
+#ifndef CH641
 #define I2C_FLAG_ARLO                                        ((uint32_t)0x10000200)
+#endif
 #define I2C_FLAG_BERR                                        ((uint32_t)0x10000100)
 #define I2C_FLAG_TXE                                         ((uint32_t)0x10000080)
 #define I2C_FLAG_RXNE                                        ((uint32_t)0x10000040)
 #define I2C_FLAG_STOPF                                       ((uint32_t)0x10000010)
+#ifndef CH641
 #define I2C_FLAG_ADD10                                       ((uint32_t)0x10000008)
+#endif
 #define I2C_FLAG_BTF                                         ((uint32_t)0x10000004)
 #define I2C_FLAG_ADDR                                        ((uint32_t)0x10000002)
+#ifndef CH641
 #define I2C_FLAG_SB                                          ((uint32_t)0x10000001)
+#endif
+
+#ifndef CH641
 
 /****************I2C Master Events (Events grouped in order of communication)********************/
 
@@ -10670,6 +10689,8 @@ typedef enum
 #define I2C_EVENT_MASTER_BYTE_TRANSMITTING                 ((uint32_t)0x00070080) /* TRA, BUSY, MSL, TXE flags */
 /* EVT8_2 */
 #define  I2C_EVENT_MASTER_BYTE_TRANSMITTED                 ((uint32_t)0x00070084)  /* TRA, BUSY, MSL, TXE and BTF flags */
+
+#endif
 
 /******************I2C Slave Events (Events grouped in order of communication)******************/
 
