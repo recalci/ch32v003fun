@@ -8086,6 +8086,17 @@ static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
 #define ADC_ExternalTrigConv_Ext_PD3_PC2               ((uint32_t)0x000C0000)
 #define ADC_ExternalTrigConv_None                      ((uint32_t)0x000E0000)
 
+#elif defined(CH641)
+
+#define ADC_ExternalTrigConv_T1_TRGO                   ((uint32_t)0x00000000)
+#define ADC_ExternalTrigConv_T1_CC1                    ((uint32_t)0x00020000)
+#define ADC_ExternalTrigConv_T1_CC2                    ((uint32_t)0x00040000)
+#define ADC_ExternalTrigConv_T1_CC3                    ((uint32_t)0x00060000)
+#define ADC_ExternalTrigConv_T2_CC1                    ((uint32_t)0x00080000)
+#define ADC_ExternalTrigConv_T2_CC2                    ((uint32_t)0x000A0000)
+#define ADC_ExternalTrigConv_Ext_PA4_PA15              ((uint32_t)0x000C0000)
+#define ADC_ExternalTrigConv_None                      ((uint32_t)0x000E0000)
+
 #elif defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 
 #define ADC_ExternalTrigConv_T1_CC1                    ((uint32_t)0x00000000)
@@ -8126,13 +8137,14 @@ static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
 #define ADC_Channel_7                                  ((uint8_t)0x07)
 #define ADC_Channel_8                                  ((uint8_t)0x08)
 #define ADC_Channel_9                                  ((uint8_t)0x09)
-#if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
+#if defined(CH641) || defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define ADC_Channel_10                                 ((uint8_t)0x0A)
 #define ADC_Channel_11                                 ((uint8_t)0x0B)
 #define ADC_Channel_12                                 ((uint8_t)0x0C)
 #define ADC_Channel_13                                 ((uint8_t)0x0D)
 #define ADC_Channel_14                                 ((uint8_t)0x0E)
 #define ADC_Channel_15                                 ((uint8_t)0x0F)
+if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define ADC_Channel_16                                 ((uint8_t)0x10)
 #define ADC_Channel_17                                 ((uint8_t)0x11)
 #endif
@@ -8140,6 +8152,8 @@ static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
 #ifdef CH32V003
 #define ADC_Channel_Vrefint                            ((uint8_t)ADC_Channel_8)
 #define ADC_Channel_Vcalint                            ((uint8_t)ADC_Channel_9)
+#elif defined(CH641)
+#define ADC_Channel_VHV                                ((uint8_t)ADC_Channel_15)
 #elif defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define ADC_Channel_TempSensor                         ((uint8_t)ADC_Channel_16)
 #define ADC_Channel_Vrefint                            ((uint8_t)ADC_Channel_17)
@@ -8159,7 +8173,7 @@ static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
 #endif
 
 /* ADC_sampling_time */
-#ifdef CH32V003
+#if defined(CH32V003) || defined(CH641)
 #define ADC_SampleTime_3Cycles                         ((uint8_t)0x00)
 #define ADC_SampleTime_9Cycles                         ((uint8_t)0x01)
 #define ADC_SampleTime_15Cycles                        ((uint8_t)0x02)
@@ -8187,6 +8201,16 @@ static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
 #define ADC_ExternalTrigInjecConv_T2_CC4               ((uint32_t)0x00003000)
 #define ADC_ExternalTrigInjecConv_Ext_PD1_PA2          ((uint32_t)0x00006000)
 #define ADC_ExternalTrigInjecConv_None                 ((uint32_t)0x00007000)
+
+#elif defined(CH641)
+#define ADC_ExternalTrigInjecConv_T1_CC1               ((uint32_t)0x00001000)
+#define ADC_ExternalTrigInjecConv_T1_CC2               ((uint32_t)0x00002000)
+#define ADC_ExternalTrigInjecConv_T1_CC3               ((uint32_t)0x00003000)
+#define ADC_ExternalTrigInjecConv_T2_CC1               ((uint32_t)0x00004000)
+#define ADC_ExternalTrigInjecConv_T2_CC2               ((uint32_t)0x00005000)
+#define ADC_ExternalTrigInjecConv_Ext_PA4_PA15         ((uint32_t)0x00006000)
+#define ADC_ExternalTrigInjecConv_None                 ((uint32_t)0x00007000)
+
 #elif defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define ADC_ExternalTrigInjecConv_T2_TRGO              ((uint32_t)0x00002000)
 #define ADC_ExternalTrigInjecConv_T2_CC1               ((uint32_t)0x00003000)
@@ -8238,7 +8262,9 @@ static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
 /* ADC_calibration_voltage_definition */
 #define ADC_CALVOL_50PERCENT                           ((uint32_t)0x02000000)
 #define ADC_CALVOL_75PERCENT                           ((uint32_t)0x04000000)
+#endif
 
+#if defined(CH32V003) || defined(CH641)
 /* ADC_external_trigger_sources_delay_channels_definition */
 #define ADC_ExternalTrigRegul_DLY                      ((uint32_t)0x00000000)
 #define ADC_ExternalTrigInjec_DLY                      ((uint32_t)0x00020000)
