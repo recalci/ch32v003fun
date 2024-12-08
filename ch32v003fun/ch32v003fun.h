@@ -10247,6 +10247,12 @@ typedef enum
 #ifndef __ASSEMBLER__
 
 /* Output Maximum frequency selection */
+#ifdef CH641
+typedef enum
+{
+    GPIO_Speed_30MHz = 3,
+} GPIOSpeed_TypeDef;
+#else
 typedef enum
 {
 	GPIO_Speed_In = 0,
@@ -10254,6 +10260,11 @@ typedef enum
 	GPIO_Speed_2MHz,
 	GPIO_Speed_50MHz
 } GPIOSpeed_TypeDef;
+#endif
+
+#if defined(CH32V003) || defined(CH641)
+#define GPIO_Speed_50MHz               GPIO_Speed_30MHz
+#endif
 
 #endif
 
@@ -10261,9 +10272,11 @@ typedef enum
 #define GPIO_CNF_IN_FLOATING 4
 #define GPIO_CNF_IN_PUPD     8
 #define GPIO_CNF_OUT_PP      0
-#define GPIO_CNF_OUT_OD      4
 #define GPIO_CNF_OUT_PP_AF   8
+#ifndef CH641
+#define GPIO_CNF_OUT_OD      4
 #define GPIO_CNF_OUT_OD_AF   12
+#endif
 
 /* Configuration Mode enumeration */
 /*
@@ -10300,15 +10313,15 @@ typedef enum
 #define GPIO_Pin_5                     ((uint16_t)0x0020) /* Pin 5 selected */
 #define GPIO_Pin_6                     ((uint16_t)0x0040) /* Pin 6 selected */
 #define GPIO_Pin_7                     ((uint16_t)0x0080) /* Pin 7 selected */
-#if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
-#define GPIO_Pin_8                      ((uint16_t)0x0100) /* Pin 8 selected */
-#define GPIO_Pin_9                      ((uint16_t)0x0200) /* Pin 9 selected */
-#define GPIO_Pin_10                     ((uint16_t)0x0400) /* Pin 10 selected */
-#define GPIO_Pin_11                     ((uint16_t)0x0800) /* Pin 11 selected */
-#define GPIO_Pin_12                     ((uint16_t)0x1000) /* Pin 12 selected */
-#define GPIO_Pin_13                     ((uint16_t)0x2000) /* Pin 13 selected */
-#define GPIO_Pin_14                     ((uint16_t)0x4000) /* Pin 14 selected */
-#define GPIO_Pin_15                     ((uint16_t)0x8000) /* Pin 15 selected */
+#if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x) || defined(CH641)
+#define GPIO_Pin_8                     ((uint16_t)0x0100) /* Pin 8 selected */
+#define GPIO_Pin_9                     ((uint16_t)0x0200) /* Pin 9 selected */
+#define GPIO_Pin_10                    ((uint16_t)0x0400) /* Pin 10 selected */
+#define GPIO_Pin_11                    ((uint16_t)0x0800) /* Pin 11 selected */
+#define GPIO_Pin_12                    ((uint16_t)0x1000) /* Pin 12 selected */
+#define GPIO_Pin_13                    ((uint16_t)0x2000) /* Pin 13 selected */
+#define GPIO_Pin_14                    ((uint16_t)0x4000) /* Pin 14 selected */
+#define GPIO_Pin_15                    ((uint16_t)0x8000) /* Pin 15 selected */
 #endif
 #define GPIO_Pin_All                   ((uint16_t)0xFFFF) /* All pins selected */
 
@@ -10331,6 +10344,21 @@ typedef enum
 #define GPIO_Remap_ADC1_ETRGINJ        ((uint32_t)0x00200002) /* ADC1 External Trigger Injected Conversion remapping */
 #define GPIO_Remap_ADC1_ETRGREG        ((uint32_t)0x00200004) /* ADC1 External Trigger Regular Conversion remapping */
 #define GPIO_Remap_LSI_CAL             ((uint32_t)0x00200080) /* LSI calibration Alternate Function mapping */
+#define GPIO_Remap_SDI_Disable         ((uint32_t)0x00300400) /* SDI Disabled */
+
+#elif defined(CH641)
+
+#define GPIO_PartialRemap_I2C1         ((uint32_t)0x00100001) /* I2C1 Partial Alternate Function mapping */
+#define GPIO_FullRemap_I2C1            ((uint32_t)0x00100002) /* I2C1 Full Alternate Function mapping */
+#define GPIO_PartialRemap1_USART1      ((uint32_t)0x80300004) /* USART1 Partial1 Alternate Function mapping */
+#define GPIO_PartialRemap2_USART1      ((uint32_t)0x80300008) /* USART1 Partial2 Alternate Function mapping */
+#define GPIO_PartialRemap3_USART1      ((uint32_t)0x8030000C) /* USART1 Partial3 Alternate Function mapping */
+#define GPIO_FullRemap_USART1          ((uint32_t)0x80300010) /* USART1 Full Alternate Function mapping */
+#define GPIO_Remap_TIM1                ((uint32_t)0x00000040) /* TIM1 Full Alternate Function mapping */
+#define GPIO_PartialRemap1_TIM2        ((uint32_t)0x00180100) /* TIM2 Partial1 Alternate Function mapping */
+#define GPIO_PartialRemap2_TIM2        ((uint32_t)0x00180200) /* TIM2 Partial2 Alternate Function mapping */
+#define GPIO_FullRemap_TIM2            ((uint32_t)0x00180300) /* TIM2 Full Alternate Function mapping */
+#define GPIO_Remap_ADC1_ETRGREG        ((uint32_t)0x00200004) /* ADC1 External Trigger Regular Conversion remapping */
 #define GPIO_Remap_SDI_Disable         ((uint32_t)0x00300400) /* SDI Disabled */
 
 #elif defined(CH32V20x) || defined(CH32V30x)
@@ -10422,13 +10450,14 @@ typedef enum
 
 /* GPIO_Port_Sources */
 #define GPIO_PortSourceGPIOA           ((uint8_t)0x00)
+#ifndef CH32V00x
+#define GPIO_PortSourceGPIOB           ((uint8_t)0x01)
+#endif
+#ifndef CH641
 #define GPIO_PortSourceGPIOC           ((uint8_t)0x02)
 #define GPIO_PortSourceGPIOD           ((uint8_t)0x03)
-#if defined(CH32X03x)
-#define GPIO_PortSourceGPIOB            ((uint8_t)0x01)
-#elif defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
-#define GPIO_PortSourceGPIOB            ((uint8_t)0x01)
-#define GPIO_PortSourceGPIOD            ((uint8_t)0x03)
+#endif
+#if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define GPIO_PortSourceGPIOE            ((uint8_t)0x04)
 #define GPIO_PortSourceGPIOF            ((uint8_t)0x05)
 #define GPIO_PortSourceGPIOG            ((uint8_t)0x06)
@@ -10443,7 +10472,7 @@ typedef enum
 #define GPIO_PinSource5                ((uint8_t)0x05)
 #define GPIO_PinSource6                ((uint8_t)0x06)
 #define GPIO_PinSource7                ((uint8_t)0x07)
-#if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x) || defined(CH32X03x)
+#if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x) || defined(CH32X03x) || defined(CH641)
 #define GPIO_PinSource8                 ((uint8_t)0x08)
 #define GPIO_PinSource9                 ((uint8_t)0x09)
 #define GPIO_PinSource10                ((uint8_t)0x0A)
