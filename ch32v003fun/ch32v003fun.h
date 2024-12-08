@@ -9910,9 +9910,14 @@ typedef enum
 #define EXTI_Line5     ((uint32_t)0x00020) /* External interrupt line 5 */
 #define EXTI_Line6     ((uint32_t)0x00040) /* External interrupt line 6 */
 #define EXTI_Line7     ((uint32_t)0x00080) /* External interrupt line 7 */
+#ifndef CH32V00x
+#define EXTI_Line8     ((uint32_t)0x00100) /* External interrupt line 8 */
+#define EXTI_Line9     ((uint32_t)0x00200) /* External interrupt line 9 */
+#else
 #define EXTI_Line8     ((uint32_t)0x00100) /* External interrupt line 8 Connected to the PVD Output */
 #define EXTI_Line9     ((uint32_t)0x00200) /* External interrupt line 9 Connected to the PWR Auto Wake-up event*/
-#if defined(CH32V20x) || defined(CH32V30x)
+#endif
+#if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x) || defined(CH641) 
 #define EXTI_Line10    ((uint32_t)0x00400)  /* External interrupt line 10 */
 #define EXTI_Line11    ((uint32_t)0x00800)  /* External interrupt line 11 */
 #define EXTI_Line12    ((uint32_t)0x01000)  /* External interrupt line 12 */
@@ -9920,7 +9925,13 @@ typedef enum
 #define EXTI_Line14    ((uint32_t)0x04000)  /* External interrupt line 14 */
 #define EXTI_Line15    ((uint32_t)0x08000)  /* External interrupt line 15 */
 #endif
-#if defined(CH32V20x) || defined(CH32V30x)
+
+#if defined(CH641)
+#define EXTI_Line16    ((uint32_t)0x10000) /* External interrupt line 16 Connected to the PVD Output */
+#define EXTI_Line17    ((uint32_t)0x20000) /* External interrupt line 17 Connected to the PWR Auto Wake-up event*/
+#define EXTI_Line18    ((uint32_t)0x40000) /* External interrupt line 18 Connected to the PVD Wake-up event */
+
+#elif defined(CH32V20x) || defined(CH32V30x)
 #define EXTI_Line16    ((uint32_t)0x10000)  /* External interrupt line 16 Connected to the PVD Output */
 #define EXTI_Line17    ((uint32_t)0x20000)  /* External interrupt line 17 Connected to the RTC Alarm event */
 #define EXTI_Line18    ((uint32_t)0x40000)  /* External interrupt line 18 Connected to the USBD Device \
@@ -9929,7 +9940,7 @@ typedef enum
 #define EXTI_Line20    ((uint32_t)0x100000) /* External interrupt line 20 Connected to the USBFS Wakeup event */
 
 #if defined(CH32V20x_D8) || defined(CH32V20x_D8W)
-  #define EXTI_Line21    ((uint32_t)0x200000) /* External interrupt line 21 Connected to the OSCCAL Wakeup event */
+#define EXTI_Line21    ((uint32_t)0x200000) /* External interrupt line 21 Connected to the OSCCAL Wakeup event */
 #endif
 
 #elif defined(CH32V10x)
@@ -9937,6 +9948,7 @@ typedef enum
 #define EXTI_Line17    ((uint32_t)0x20000) /* External interrupt line 17 Connected to the RTC Alarm event */
 #define EXTI_Line18    ((uint32_t)0x40000)
 #define EXTI_Line19    ((uint32_t)0x80000) /* External interrupt line 19 Connected to the USBHD Wakeup event */
+
 #endif
 
 /* ch32v00x_flash.h ----------------------------------------------------------*/
