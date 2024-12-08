@@ -10941,11 +10941,12 @@ typedef struct
 
 /* ch32v00x_rcc.h ------------------------------------------------------------*/
 
-
+#ifndef CH641
 /* HSE_configuration */
 #define RCC_HSE_OFF                      ((uint32_t)0x00000000)
 #define RCC_HSE_ON                       ((uint32_t)0x00010000)
 #define RCC_HSE_Bypass                   ((uint32_t)0x00040000)
+#endif
 
 #ifdef CH32V003
 
@@ -11104,10 +11105,12 @@ typedef struct
 
 /* System_clock_source */
 #define RCC_SYSCLKSource_HSI             ((uint32_t)0x00000000)
+#ifndef CH641
 #define RCC_SYSCLKSource_HSE             ((uint32_t)0x00000001)
+#endif
 #define RCC_SYSCLKSource_PLLCLK          ((uint32_t)0x00000002)
 
-#ifdef CH32V003
+#if defined(CH32V003) || defined(CH641)
 
 /* AHB_clock_source */
 #define RCC_SYSCLK_Div1                  ((uint32_t)0x00000000)
@@ -11147,6 +11150,9 @@ typedef struct
 #endif
 
 /* RCC_Interrupt_source */
+#ifdef CH641
+#define RCC_IT_PLLRDY                    ((uint8_t)0x10)
+#else
 #define RCC_IT_LSIRDY                    ((uint8_t)0x01)
 #if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define RCC_IT_LSERDY                   ((uint8_t)0x02)
@@ -11160,6 +11166,8 @@ typedef struct
 #define RCC_IT_PLL2RDY                   ((uint8_t)0x20)
 #define RCC_IT_PLL3RDY                   ((uint8_t)0x40)
 #endif
+
+#endif // ifdef CH641
 
 #if defined(CH32V20x)
 
@@ -11216,6 +11224,26 @@ typedef struct
 #define RCC_PCLK2_Div64                  ((uint32_t)0x0000F000)
 #define RCC_PCLK2_Div96                  ((uint32_t)0x0000B800)
 #define RCC_PCLK2_Div128                 ((uint32_t)0x0000F800)
+
+#elif defined(CH641)
+
+/* ADC_clock_source */
+#define RCC_PCLK2_Div2                   ((uint32_t)0x00000000)
+#define RCC_PCLK2_Div4                   ((uint32_t)0x00004000)
+#define RCC_PCLK2_Div6                   ((uint32_t)0x00008000)
+#define RCC_PCLK2_Div8                   ((uint32_t)0x0000C000)
+#define RCC_PCLK2_Div12                  ((uint32_t)0x00010000)
+#define RCC_PCLK2_Div16                  ((uint32_t)0x00014000)
+#define RCC_PCLK2_Div24                  ((uint32_t)0x00018000)
+#define RCC_PCLK2_Div32                  ((uint32_t)0x00016000)
+#define RCC_PCLK2_Div48                  ((uint32_t)0x0001A000)
+#define RCC_PCLK2_Div64                  ((uint32_t)0x00016100)
+#define RCC_PCLK2_Div96                  ((uint32_t)0x0001A100)
+#define RCC_PCLK2_Div128                 ((uint32_t)0x00017000)
+#define RCC_PCLK2_Div192                 ((uint32_t)0x0001B000)
+#define RCC_PCLK2_Div256                 ((uint32_t)0x00017100)
+#define RCC_PCLK2_Div384                 ((uint32_t)0x0001B100)
+#define RCC_PCLK2_Div768                 ((uint32_t)0x0001F100)
 
 #elif defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 
@@ -11373,14 +11401,36 @@ typedef struct
 #define RCC_APB1Periph_CEC               ((uint32_t)0x40000000)
 #endif
 
+#elif defined(CH641)
+/* AHB_peripheral */
+#define RCC_AHBPeriph_DMA1               ((uint32_t)0x00000001)
+#define RCC_AHBPeriph_SRAM               ((uint32_t)0x00000004)
+#define RCC_AHBPeriph_USBPD              ((uint32_t)0x00000080)
+
+/* APB2_peripheral */
+#define RCC_APB2Periph_AFIO              ((uint32_t)0x00000001)
+#define RCC_APB2Periph_GPIOA             ((uint32_t)0x00000004)
+#define RCC_APB2Periph_GPIOB             ((uint32_t)0x00000008)
+#define RCC_APB2Periph_ADC1              ((uint32_t)0x00000200)
+#define RCC_APB2Periph_TIM1              ((uint32_t)0x00000800)
+#define RCC_APB2Periph_USART1            ((uint32_t)0x00004000)
+
+/* APB1_peripheral */
+#define RCC_APB1Periph_TIM2              ((uint32_t)0x00000001)
+#define RCC_APB1Periph_WWDG              ((uint32_t)0x00000800)
+#define RCC_APB1Periph_I2C1              ((uint32_t)0x00200000)
+#define RCC_APB1Periph_PWR               ((uint32_t)0x10000000)
+
 #endif
 
 /* Clock_source_to_output_on_MCO_pin */
 #define RCC_MCO_NoClock                  ((uint8_t)0x00)
 #define RCC_MCO_SYSCLK                   ((uint8_t)0x04)
 #define RCC_MCO_HSI                      ((uint8_t)0x05)
+#ifndef CH641
 #define RCC_MCO_HSE                      ((uint8_t)0x06)
-#ifdef CH32V003
+#endif
+#if defined(CH32V003) || defined(CH641)
 #define RCC_MCO_PLLCLK                   ((uint8_t)0x07)
 #elif defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define RCC_MCO_PLLCLK_Div2            	 ((uint8_t)0x07)
@@ -11395,16 +11445,24 @@ typedef struct
 
 /* RCC_Flag */
 #define RCC_FLAG_HSIRDY                  ((uint8_t)0x21)
+#ifndef CH641
 #define RCC_FLAG_HSERDY                  ((uint8_t)0x31)
+#endif
 #define RCC_FLAG_PLLRDY                  ((uint8_t)0x39)
 #if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define RCC_FLAG_LSERDY                	 ((uint8_t)0x41)
 #endif
+#ifndef CH641
 #define RCC_FLAG_LSIRDY                  ((uint8_t)0x61)
+#else
+#define RCC_FLAG_USBPDRSTF               ((uint8_t)0x79)
+#endif
 #define RCC_FLAG_PINRST                  ((uint8_t)0x7A)
 #define RCC_FLAG_PORRST                  ((uint8_t)0x7B)
 #define RCC_FLAG_SFTRST                  ((uint8_t)0x7C)
+#ifndef CH641
 #define RCC_FLAG_IWDGRST                 ((uint8_t)0x7D)
+#endif
 #define RCC_FLAG_WWDGRST                 ((uint8_t)0x7E)
 #define RCC_FLAG_LPWRRST                 ((uint8_t)0x7F)
 
