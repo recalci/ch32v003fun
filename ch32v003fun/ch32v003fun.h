@@ -9962,14 +9962,19 @@ typedef enum
     FLASH_ERROR_PG,
     FLASH_ERROR_WRP,
     FLASH_COMPLETE,
-    FLASH_TIMEOUT
+    FLASH_TIMEOUT,
+    FLASH_OP_RANGE_ERROR = 0xFD,
+    FLASH_ALIGN_ERROR = 0xFE,
+    FLASH_ADR_RANGE_ERROR = 0xFF,
 } FLASH_Status;
 #endif
 
-#if defined(CH32V003) || defined(CH32V10x)
+#if defined(CH32V003) || defined(CH32V10x) || defined(CH641)
 /* Flash_Latency */
 #define FLASH_Latency_0                  ((uint32_t)0x00000000) /* FLASH Zero Latency cycle */
 #define FLASH_Latency_1                  ((uint32_t)0x00000001) /* FLASH One Latency cycle */
+#endif
+#if defined(CH32V003) || defined(CH32V10x)
 #define FLASH_Latency_2                  ((uint32_t)0x00000002) /* FLASH Two Latency cycles */
 #endif
 
@@ -9983,8 +9988,8 @@ typedef enum
 #define FLASH_PrefetchBuffer_Disable     ((uint32_t)0x00000000) /* FLASH Prefetch Buffer Disable */
 #endif
 
-#ifdef CH32V003
-/* Values to be used with CH32V00x devices (1page = 64Byte) */
+#if defined(CH32V003) || defined(CH641)
+/* Values to be used with CH32V00x and CH641 devices (1page = 64Byte) */
 #define FLASH_WRProt_Pages0to15          ((uint32_t)0x00000001) /* CH32 Low and Medium density devices: Write protection of page 0 to 15 */
 #define FLASH_WRProt_Pages16to31         ((uint32_t)0x00000002) /* CH32 Low and Medium density devices: Write protection of page 16 to 31 */
 #define FLASH_WRProt_Pages32to47         ((uint32_t)0x00000004) /* CH32 Low and Medium density devices: Write protection of page 32 to 47 */
@@ -10097,13 +10102,14 @@ typedef enum
 #define OB_STDBY_NoRST                   ((uint16_t)0x0004) /* No reset generated when entering in STANDBY */
 #define OB_STDBY_RST                     ((uint16_t)0x0000) /* Reset generated when entering in STANDBY */
 
-#ifdef CH32V003
+#if defined(CH32V003) || defined(CH641)
 /* Option_Bytes_RST_ENandDT */
 #define OB_RST_NoEN                      ((uint16_t)0x0018) /* Reset IO disable (PD7)*/
 #define OB_RST_EN_DT12ms                 ((uint16_t)0x0010) /* Reset IO enable (PD7) and  Ignore delay time 12ms */
 #define OB_RST_EN_DT1ms                  ((uint16_t)0x0008) /* Reset IO enable (PD7) and  Ignore delay time 1ms */
 #define OB_RST_EN_DT128ms                ((uint16_t)0x0000) /* Reset IO enable (PD7) and  Ignore delay time 128ms */
 
+/* Option_Bytes_Power_ON_Start_Mode */
 #define OB_STARTMODE_BOOT                ((uint16_t)0x0020) /* Start in BOOT area */
 #define OB_STARTMODE_USER                ((uint16_t)0x0000) /* Start in user area */
 #endif
@@ -10136,7 +10142,7 @@ typedef enum
 #define FLASH_Access_SYSTEM           ((uint32_t)0x02000000) /* Enhance_CLK = SYSTEM/2 */
 #endif
 
-#if defined(CH32V003)
+#if defined(CH32V003) || defined(CH641)
 /* System_Reset_Start_Mode */
 #define Start_Mode_USER                  ((uint32_t)0x00000000)
 #define Start_Mode_BOOT                  ((uint32_t)0x00004000)
