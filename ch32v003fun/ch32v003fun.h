@@ -8592,6 +8592,13 @@ if defined(CH32V10x) || defined(CH32V20x) || defined(CH32V30x)
 #define DBGMCU_WWDG_STOP             ((uint32_t)0x00000200)
 #define DBGMCU_TIM1_STOP             ((uint32_t)0x00001000)
 #define DBGMCU_TIM2_STOP             ((uint32_t)0x00002000)
+#elif defined(CH641)
+/* CFGR0 Register */
+#define DBGMCU_SLEEP                 ((uint32_t)0x00000001)
+#define DBGMCU_STANDBY               ((uint32_t)0x00000004)
+#define DBGMCU_WWDG_STOP             ((uint32_t)0x00000200)
+#define DBGMCU_TIM1_STOP             ((uint32_t)0x00001000)
+#define DBGMCU_TIM2_STOP             ((uint32_t)0x00002000)
 #elif defined(CH32V20x) || defined(CH32V30x)
 /* CFGR0 Register */
 #define DBGMCU_SLEEP                 ((uint32_t)0x00000001)
