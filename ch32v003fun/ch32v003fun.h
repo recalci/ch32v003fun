@@ -12197,6 +12197,8 @@ typedef struct
 #define USART_HardwareFlowControl_CTS        ((uint16_t)0x0200)
 #define USART_HardwareFlowControl_RTS_CTS    ((uint16_t)0x0300)
 
+#ifdef CH641
+
 /* USART_Clock */
 #define USART_Clock_Disable                  ((uint16_t)0x0000)
 #define USART_Clock_Enable                   ((uint16_t)0x0800)
@@ -12212,6 +12214,8 @@ typedef struct
 /* USART_Last_Bit */
 #define USART_LastBit_Disable                ((uint16_t)0x0000)
 #define USART_LastBit_Enable                 ((uint16_t)0x0100)
+
+#endif // ifdef CH641
 
 /* USART_Interrupt_definition */
 #define USART_IT_PE                          ((uint16_t)0x0028)
